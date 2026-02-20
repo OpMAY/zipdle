@@ -1,1 +1,127 @@
+@import url("https://cdn.jsdelivr.net/gh/moonspam/NanumSquareNeo@1.0/nanumsquareneo.css");
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "NanumSquareNeo", sans-serif;
+
+  /* Jazz Bar Palette - Mapping to semantic names */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  /* Light Mode (Warm Jazz Lounge) */
+  --background: #fdfbf7; /* Warm Cream */
+  --foreground: #2d2a26; /* Dark Coffee */
+
+  --card: #ffffff;
+  --card-foreground: #2d2a26;
+
+  --popover: #ffffff;
+  --popover-foreground: #2d2a26;
+
+  --primary: #d4a017; /* Gold/Brass */
+  --primary-foreground: #1a1a1a;
+
+  --secondary: #800020; /* Burgundy/Velvet Red */
+  --secondary-foreground: #fdfbf7;
+
+  --muted: #e6e2d8;
+  --muted-foreground: #787570;
+
+  --accent: #5e3a76; /* Deep Purple */
+  --accent-foreground: #fdfbf7;
+
+  --destructive: #c0392b;
+  --destructive-foreground: #ffffff;
+
+  --border: #e6e2d8;
+  --input: #e6e2d8;
+  --ring: #d4a017;
+}
+
+.dark {
+  /* Dark Mode (Midnight Jazz Club - Deeper Black) */
+  --background: #2d2a26; /* True Black / Very Deep Charcoal */
+  --foreground: #e0e0e0; /* Off-white */
+
+  --card: #2d2a26; /* Slightly lighter than black */
+  --card-foreground: #e0e0e0;
+
+  --popover: #2d2a26;
+  --popover-foreground: #e0e0e0;
+
+  --primary: #c59d5f; /* Muted Gold/Brass */
+  --primary-foreground: #000000;
+
+  --secondary: #58181f; /* Deep Burgundy */
+  --secondary-foreground: #e0e0e0;
+
+  --muted: #1a1a1a;
+  --muted-foreground: #888888;
+
+  --accent: #3d2c55; /* Muted Purple */
+  --accent-foreground: #e0e0e0;
+
+  --destructive: #7f1d1d;
+  --destructive-foreground: #e0e0e0;
+
+  --border: #989898; /* Darker border */
+  --input: #989898;
+  --ring: #c59d5f;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Mobile Hover Fix */
+@media (hover: hover) {
+  .hover-effect:hover {
+    @apply opacity-80 transition-opacity;
+  }
+}
+@media (hover: none) {
+  .hover-effect:active {
+    @apply opacity-80 transition-opacity;
+  }
+}
+
+/* Scrollbar Styling for that premium feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--muted);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+button {
+  cursor: pointer;
+}

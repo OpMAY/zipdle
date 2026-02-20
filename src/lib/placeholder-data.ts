@@ -11,35 +11,27 @@ import {
 export const members: Member[] = [
   {
     id: "m1",
-    name: "Kim Leader",
+    name: "신인철",
     role: "leader",
     parts: [Part.Guitar, Part.Vocal],
-    phone: "010-1234-5678",
-    email: "leader@zipdle.com",
   },
   {
     id: "m2",
-    name: "Park Drum",
+    name: "정수지",
     role: "manager",
     parts: [Part.Drums],
-    phone: "010-2345-6789",
-    email: "drum@zipdle.com",
   },
   {
     id: "m3",
     name: "Lee Bass",
     role: "member",
     parts: [Part.Bass],
-    phone: "010-3456-7890",
-    email: "bass@zipdle.com",
   },
   {
     id: "m4",
     name: "Choi Key",
     role: "member",
     parts: [Part.Keyboard],
-    phone: "010-4567-8901",
-    email: "key@zipdle.com",
   },
 ];
 
@@ -143,6 +135,15 @@ export const posts: Post[] = [
       "Please send your share for this month's practice room fee by Friday.",
     author_id: "m2",
     category: "notice",
+    likes: ["m1", "m3"],
+    comments: [
+      {
+        id: "c1",
+        author_id: "m1",
+        content: "Got it!",
+        created_at: "2024-01-20T10:00:00Z",
+      },
+    ],
     created_at: "2024-01-20T09:00:00Z",
     updated_at: "2024-01-20T09:00:00Z",
   },
@@ -152,6 +153,8 @@ export const posts: Post[] = [
     content: "Just bought a new pedalboard! Check it out.",
     author_id: "m1",
     category: "gear",
+    likes: ["m4"],
+    comments: [],
     created_at: "2024-01-22T18:30:00Z",
     updated_at: "2024-01-22T18:30:00Z",
   },

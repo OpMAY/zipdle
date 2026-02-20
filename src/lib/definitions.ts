@@ -11,6 +11,19 @@ export enum Part {
   Other = "Other",
 }
 
+export const PartLabel: Record<Part, string> = {
+  [Part.Vocal]: "보컬",
+  [Part.Guitar]: "기타",
+  [Part.Bass]: "베이스",
+  [Part.Drums]: "드럼",
+  [Part.Keyboard]: "키보드",
+  [Part.Piano]: "피아노",
+  [Part.Saxophone]: "색소폰",
+  [Part.Trumpet]: "트럼펫",
+  [Part.Violin]: "바이올린",
+  [Part.Other]: "기타 악기",
+};
+
 export type Member = {
   id: string;
   name: string;
@@ -64,9 +77,17 @@ export type Idea = {
   title: string;
   artist: string;
   link?: string;
+  comment?: string;
   description?: string;
   suggested_by: string; // Member ID
   votes: string[]; // Array of Member IDs who voted
+  created_at: string;
+};
+
+export type Comment = {
+  id: string;
+  author_id: string;
+  content: string;
   created_at: string;
 };
 
@@ -76,6 +97,8 @@ export type Post = {
   content: string;
   author_id: string;
   category: "notice" | "free" | "gear";
+  likes: string[]; // Member IDs
+  comments: Comment[];
   created_at: string;
   updated_at: string;
 };
