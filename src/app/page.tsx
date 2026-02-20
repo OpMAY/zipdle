@@ -42,7 +42,9 @@ export default async function Home() {
   return (
     <div className="p-4 sm:p-8 space-y-8">
       <header>
-        <h1 className="text-4xl font-bold text-primary mb-2">대시보드</h1>
+        <h1 className="sm:text-4xl text-xl font-bold text-primary mb-2">
+          대시보드
+        </h1>
         <p className="text-muted-foreground text-lg">집들이 밴드</p>
       </header>
 

@@ -125,3 +125,18 @@ body {
 button {
   cursor: pointer;
 }
+
+html {
+  font-size: 12px; /* 모바일 기본 → Tailwind의 rem 단위 전체가 작아짐 */
+}
+@media (min-width: 640px) {
+  html {
+    font-size: 14px; /* 데스크탑은 기본값 복원 */
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 16px; /* 데스크탑은 기본값 복원 */
+  }
+}
