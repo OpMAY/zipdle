@@ -21,7 +21,8 @@ export async function addScheduleAction(data: {
       data: {
         title: data.title,
         type: data.type,
-        start_date: new Date(data.start_date),
+        // Append +09:00 to force parsing as KST (Korean Standard Time) instead of server UTC
+        start_date: new Date(`${data.start_date}:00+09:00`),
         location: data.location,
         description: data.description,
       },

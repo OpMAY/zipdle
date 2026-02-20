@@ -5,13 +5,14 @@ import {
   Plus,
   X,
   Trash2,
+  Edit2,
   Youtube,
   ChevronDown,
   ChevronUp,
   Loader2,
 } from "lucide-react";
 import { getYouTubeId } from "@/lib/utils";
-import { addSongAction, deleteSongAction } from "./actions";
+import { addSongAction, deleteSongAction, updateSongAction } from "./actions";
 
 // Define the song type correctly mapped from Prisma
 type SongWithAdder = {
@@ -36,9 +37,7 @@ export default function RepertoireClient({
     <div className="min-h-screen p-4 sm:p-8">
       <header className="mb-8 flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">
-            합주곡 (레퍼토리)
-          </h1>
+          <h1 className="text-3xl font-bold text-foreground">합주곡</h1>
           <p className="text-muted-foreground mt-2">
             밴드의 합주곡 목록을 관리합니다.
           </p>
@@ -203,9 +202,153 @@ function AddSongForm({ onAddSuccess }: { onAddSuccess: () => void }) {
   );
 }
 
+function EditSongForm({
+  song,
+  onSaveSuccess,
+  onCancel,
+}: {
+  song: SongWithAdder;
+  onSaveSuccess: () => void;
+  onCancel: () => void;
+}) {
+  const [title, setTitle] = useState(song.title);
+  const [artist, setArtist] = useState(song.artist);
+  const [status, setStatus] = useState(song.status);
+  const [key, setKey] = useState(song.key || "");
+  const [bpm, setBpm] = useState(song.bpm ? song.bpm.toString() : "");
+  const [link, setLink] = useState(song.link || "");
+  const [isSaving, setIsSaving] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!title || !artist) return;
+
+    setIsSaving(true);
+    const res = await updateSongAction(song.id, {
+      title,
+      artist,
+      status,
+      key: key || undefined,
+      bpm: bpm ? parseInt(bpm) : undefined,
+      link: link || undefined,
+    });
+
+    setIsSaving(false);
+
+    if (res.success) {
+      onSaveSuccess();
+    } else {
+      alert(res.error);
+    }
+  };
+
+  return (
+    <div className="bg-card rounded-xl shadow-sm border border-primary p-6 mb-4">
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-lg font-semibold text-foreground">곡 수정</h3>
+        <button
+          onClick={onCancel}
+          className="text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <X className="w-5 h-5" />
+        </button>
+      </div>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium mb-1 text-foreground">
+              곡 제목
+            </label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full px-3 py-2 border border-input bg-background rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1 text-foreground">
+              아티스트
+            </label>
+            <input
+              type="text"
+              value={artist}
+              onChange={(e) => setArtist(e.target.value)}
+              className="w-full px-3 py-2 border border-input bg-background rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1 text-foreground">
+              상태
+            </label>
+            <select
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              className="w-full px-3 py-2 border border-input bg-background rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+            >
+              <option value="wishlist">희망곡</option>
+              <option value="practice">연습중</option>
+              <option value="complete">완료</option>
+              <option value="hold">보류</option>
+            </select>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium mb-1 text-foreground">
+                키 (Key)
+              </label>
+              <input
+                type="text"
+                value={key}
+                onChange={(e) => setKey(e.target.value)}
+                className="w-full px-3 py-2 border border-input bg-background rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1 text-foreground">
+                BPM
+              </label>
+              <input
+                type="number"
+                value={bpm}
+                onChange={(e) => setBpm(e.target.value)}
+                className="w-full px-3 py-2 border border-input bg-background rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+              />
+            </div>
+          </div>
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium mb-1 text-foreground">
+              링크 (YouTube 등)
+            </label>
+            <input
+              type="url"
+              value={link}
+              onChange={(e) => setLink(e.target.value)}
+              className="w-full px-3 py-2 border border-input bg-background rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+            />
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <button
+            type="submit"
+            disabled={isSaving}
+            className="px-6 py-2 bg-primary text-primary-foreground flex items-center gap-2 rounded-lg hover:opacity-90 transition-opacity duration-300 text-sm font-medium disabled:opacity-50"
+          >
+            {isSaving && <Loader2 className="w-4 h-4 animate-spin" />}
+            {isSaving ? "수정 중..." : "수정 완료"}
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
 function SongItem({ song }: { song: SongWithAdder }) {
   const [showVideo, setShowVideo] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const videoId = getYouTubeId(song.link || "");
 
@@ -233,21 +376,42 @@ function SongItem({ song }: { song: SongWithAdder }) {
     }
   };
 
+  if (isEditing) {
+    return (
+      <li className="p-4 sm:p-6 border-b border-border last:border-0">
+        <EditSongForm
+          song={song}
+          onSaveSuccess={() => setIsEditing(false)}
+          onCancel={() => setIsEditing(false)}
+        />
+      </li>
+    );
+  }
+
   return (
     <li
       className={`p-4 sm:p-6 hover:bg-muted/10 transition-colors duration-300 group relative border-b border-border last:border-0 ${isDeleting ? "opacity-50 pointer-events-none" : ""}`}
     >
-      <button
-        onClick={handleDelete}
-        className="absolute top-4 right-4 p-1 text-muted-foreground hover:text-destructive opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
-        title="곡 삭제"
-      >
-        {isDeleting ? (
-          <Loader2 className="w-4 h-4 animate-spin" />
-        ) : (
-          <Trash2 className="w-4 h-4" />
-        )}
-      </button>
+      <div className="absolute top-4 right-4 flex opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 gap-2">
+        <button
+          onClick={() => setIsEditing(true)}
+          className="p-1 text-muted-foreground hover:text-primary transition-colors"
+          title="곡 수정"
+        >
+          <Edit2 className="w-4 h-4" />
+        </button>
+        <button
+          onClick={handleDelete}
+          className="p-1 text-muted-foreground hover:text-destructive transition-colors"
+          title="곡 삭제"
+        >
+          {isDeleting ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            <Trash2 className="w-4 h-4" />
+          )}
+        </button>
+      </div>
 
       <div className="flex flex-col gap-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mr-8">

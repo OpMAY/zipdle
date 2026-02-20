@@ -27,16 +27,16 @@
 
 :root {
   /* Light Mode (Warm Jazz Lounge) */
-  --background: #fdfbf7; /* Warm Cream */
+  --background: #f1f1f1; /* Warm Cream */
   --foreground: #2d2a26; /* Dark Coffee */
 
-  --card: #ffffff;
+  --card: #f1f1f1;
   --card-foreground: #2d2a26;
 
   --popover: #ffffff;
   --popover-foreground: #2d2a26;
 
-  --primary: #d4a017; /* Gold/Brass */
+  --primary: #fbc85c; /* Gold/Brass */
   --primary-foreground: #1a1a1a;
 
   --secondary: #800020; /* Burgundy/Velvet Red */

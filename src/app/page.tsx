@@ -63,7 +63,7 @@ export default async function Home() {
             title="합주곡"
             stat={songCount}
             icon={<Music className="w-6 h-6 text-accent" />}
-            desc="등록된 레퍼토리"
+            desc="등록된 합주곡 리스트"
           />
         </Link>
         <Link href="/schedule" className="block h-full">

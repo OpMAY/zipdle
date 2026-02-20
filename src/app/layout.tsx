@@ -21,7 +21,7 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="flex min-h-screen">
               <SideNav />
-              <main className="flex-1 md:ml-64 pt-16 md:pt-0 transition-all duration-200 ease-in-out">
+              <main className="flex-1 xl:ml-32 pt-16 md:pt-0 transition-all duration-200 ease-in-out">
                 {children}
               </main>
             </div>
