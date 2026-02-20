@@ -82,7 +82,7 @@ export default async function Home() {
         </Link>
         <Link href="/ideas" className="block h-full">
           <DashboardCard
-            title="아이디어"
+            title="곡추천"
             stat={ideaCount}
             icon={<Lightbulb className="w-6 h-6 text-yellow-500" />}
             desc="투표 중인 곡 제안"

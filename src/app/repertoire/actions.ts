@@ -26,7 +26,7 @@ export async function addSongAction(data: {
         key: data.key,
         bpm: data.bpm,
         link: data.link,
-        adderId: session.user.id,
+        added_by: session.user.id,
       },
     });
 

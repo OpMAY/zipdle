@@ -26,7 +26,7 @@ const links = [
   { name: "합주곡", href: "/repertoire", icon: Music },
   { name: "일정", href: "/schedule", icon: Calendar },
   { name: "셋리스트", href: "/setlists", icon: ListMusic },
-  { name: "아이디어", href: "/ideas", icon: Lightbulb },
+  { name: "곡 추천", href: "/ideas", icon: Lightbulb },
   { name: "게시판", href: "/board", icon: ClipboardList },
 ];
 

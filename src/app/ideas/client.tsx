@@ -30,9 +30,7 @@ export default function IdeasClient({ initialIdeas }: { initialIdeas: any[] }) {
     <div className="min-h-screen p-4 sm:p-8">
       <header className="mb-8 flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">
-            아이디어(곡 추천)
-          </h1>
+          <h1 className="text-3xl font-bold text-foreground">곡 추천</h1>
           <p className="text-muted-foreground mt-2">
             하고 싶은 곡을 자유롭게 제안하고 투표해보세요.
           </p>
